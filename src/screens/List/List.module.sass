@@ -1,0 +1,31 @@
+@import ../../styles/helpers
+
+.banner
+  position: relative
+  img
+    width: 100%
+  .user
+    display: flex
+    margin-top: -45px
+    padding: 0 80px
+    +t
+      padding-right: var(--bs-gutter-x, 0.75rem)
+      padding-left: var(--bs-gutter-x, 0.75rem)
+    img
+      width: 80px
+      border: 2px solid white
+      border-radius: 50%
+    span
+      margin-top: 35px
+      margin-left: 15px
+      font-weight: bold
+
+.divider
+  height: 3vh
+  border-bottom: 1px solid $border
+  
+.container
+  padding: 0 80px
+  +t
+    padding-right: var(--bs-gutter-x, 0.75rem)
+    padding-left: var(--bs-gutter-x, 0.75rem)

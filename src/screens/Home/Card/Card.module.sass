@@ -1,0 +1,69 @@
+@import ../../../styles/helpers
+
+.container
+    padding: 0 15px
+    margin-bottom: 40px
+    +c
+        max-width: 350px;
+        margin: 0 auto;
+        margin-bottom: 40px
+
+.imageWrapper
+    width: 100%
+    height: 0
+    padding-bottom: 100%
+    position: relative
+    .image
+        position: absolute
+        width: 100%
+        border-radius: 8px
+        height: 100%
+        object-fit: cover
+    .favorite
+        cursor: pointer
+        position: absolute
+        top: 10px
+        right: 10px
+        background-color: rgba(0,0,0, 0.3)
+        border-radius: 50%
+        width: 30px
+        height: 30px
+        display: flex
+        justify-content: center
+        align-items: center
+
+.title
+    font-size: 15px
+    font-weight: bold
+    padding: 8px 0 0 5px
+
+.owner
+    font-size: 14px
+    padding-left: 5px
+    color: rgba(255,255,255,0.7)
+
+.price
+    font-size: 15px
+    font-weight: bold
+    padding-left: 5px
+
+.token
+    font-size: 15px
+    color: rgba(255,255,255,0.7)
+    padding-left: 5px
+
+.buttonContainer
+    background-color: $lightDark
+    margin-left: 5px
+    border-radius: 30px
+    margin-top: 10px
+    margin-bottom: 10px
+    padding: 3px
+    button
+        width: 50%
+        padding: 12px 0 10px 0
+        font-weight: bold
+    .buy
+        border-radius: 30px
+        background-color: white
+        color: black

@@ -1,128 +1,101 @@
 @import ../../styles/helpers
 
-.section
-    padding: 96px 0
-    +x
-        padding: 80px 0
-    +m
-        padding: 64px 0
+.image
+    max-width: 400px
+    width: 100%
 
-.container
+.largeText
+    font-size: 16px
+    color: #FFFCFC
+
+.iconWrapper
+    width: 70px
+    height: 70px
     display: flex
-    align-items: flex-start
-    +t
-        display: block
-
-.bg
-    position: relative
-    flex-grow: 1
-    margin-right: 96px
-    +x
-        margin-right: 64px
-    +d
-        margin-right: 32px
-    +t
-        margin: 0 0 32px
-
-.details
-    display: flex
-    flex-direction: column
-    flex-shrink: 0
-    width: 384px
-    +d
-        width: 336px
-    +t
-        width: 100%
-
-.preview
-    position: relative
+    justify-content: center
+    align-items: center
+    margin-right: 10px
+    cursor: pointer
+    &.active
+        border-radius: 12px
+        background-color: #202020
     img
-        width: 100%
-        border-radius: 16px
-
-.categories
-    position: absolute
-    top: 24px
-    left: 24px
-    display: flex
-    flex-wrap: wrap
-    margin: -8px 0 0 -8px
-
-.category
-    margin: 8px 0 0 8px
-
-.options
-    position: absolute
-    top: auto
-    left: 50%
-    bottom: 24px
-    transform: translateX(-50%)
+        width: 50px
 
 .title
-    margin-bottom: 8px
+    font-size: 22px
+    color: white
+    line-height: 30px
+    font-weight: bold
 
-.cost
+.favoriteWrapper
+    border-radius: 7px
+    border: 1px solid #EEE4E4
+    padding: 3px 10px
+    background-color: #0E0000
+    img
+        width: 25px
+
+.arrowWrapper
+    width: 33px
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
+    background-color: $white
+    margin-left: 15px
+    svg
+        transform: rotate(-35deg)
+
+.tokenWrapper
+    border: 1px solid $primary
+    width: fit-content
+    border-radius: 8px
+    padding: 2px 15px
+
+.description
+    max-width: 600px
+
+.bidContainer
+    border: 1px solid $white
+    border-radius: 5px
+    .bidTitle
+        font-size: 18px
+        border-bottom: 1px solid $white
+
+.bidFrom
+    width: 30%
+    font-size: 18px
+    img
+        width: 25px
+        margin-right: 10px
+    span
+        font-size: 15px
+
+.bidPrice
+    width: 20%
+    font-size: 18px
+    span
+        font-size: 15px
+
+.bidDate
     display: flex
     align-items: center
-    margin-bottom: 40px
+    width: 50%
+    color: #BEB9B9
 
-.price
-    +dm-sans
-    font-size: 16px
-    line-height: 30px
-    &:not(:last-child)
-        margin-right: 8px
-    
-.counter
-    +button-1
-    color: $neutrals4
+.buy
+    font-size: 17px
+    padding: 13px 30px
+    background-color: $primary
+    border-radius: 50px
+    color: black
 
-.info
-    margin-bottom: 40px
-    +body-2
-    color: $neutrals4
-    a
-        text-decoration: underline
-        font-weight: 500
-        color: $neutrals2
-        +dark
-            color: $neutrals8
-        &:hover
-            text-decoration: none
-
-.nav
-    display: flex
-    margin-bottom: 32px
-    padding: 6px
-    border-radius: 20px
-    box-shadow: inset 0 0 0 2px $neutrals6
-    +dark
-        box-shadow: inset 0 0 0 2px $neutrals3
-
-.link
-    padding: 6px 12px
-    border-radius: 14px
-    background: none
-    +button-2
-    color: $neutrals4
-    transition: all .2s
-    &:hover
-        color: $neutrals3
-        +dark
-            color: $neutrals6
-    &.active
-        background: $neutrals3
-        color: $neutrals8
-        +dark
-            background: $neutrals8
-            color: $neutrals2
-    &:not(:last-child)
-        margin-right: 8px
-    
-.users
-    margin-bottom: auto
-
-.control
-    margin-top: 40px
-    +m
-        margin-top: 32px
+.priceWrapper
+    padding: 0 20px
+    .bnbPrice
+        font-size: 17px
+        font-weight: bold
+    .usdPrice
+        color: #B4ABAB
+        font-size: 15px

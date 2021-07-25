@@ -17,7 +17,6 @@ const Page = ({ children }) => {
     <div className={styles.page}>
       <Header />
       <div className={styles.inner}>{children}</div>
-      <Footer />
     </div>
   );
 };

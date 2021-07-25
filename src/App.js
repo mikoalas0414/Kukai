@@ -1,18 +1,16 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/app.sass";
+import "./assets/css/sass/main.scss";
 import Page from "./components/Page";
 import Home from "./screens/Home";
-import UploadVariants from "./screens/UploadVariants";
-import UploadDetails from "./screens/UploadDetails";
+import Create from "./screens/Create";
 import ConnectWallet from "./screens/ConnectWallet";
 import Faq from "./screens/Faq";
 import Activity from "./screens/Activity";
-import Search01 from "./screens/Search01";
 import Search02 from "./screens/Search02";
-import Profile from "./screens/Profile";
-import ProfileEdit from "./screens/ProfileEdit";
+import Collection from "./screens/Collection";
 import Item from "./screens/Item";
-import PageList from "./screens/PageList";
+import List from "./screens/List";
 
 function App() {
   return (
@@ -29,19 +27,10 @@ function App() {
         />
         <Route
           exact
-          path="/upload-variants"
+          path="/create"
           render={() => (
             <Page>
-              <UploadVariants />
-            </Page>
-          )}
-        />
-        <Route
-          exact
-          path="/upload-details"
-          render={() => (
-            <Page>
-              <UploadDetails />
+              <Create />
             </Page>
           )}
         />
@@ -74,15 +63,6 @@ function App() {
         />
         <Route
           exact
-          path="/search01"
-          render={() => (
-            <Page>
-              <Search01 />
-            </Page>
-          )}
-        />
-        <Route
-          exact
           path="/search02"
           render={() => (
             <Page>
@@ -92,37 +72,28 @@ function App() {
         />
         <Route
           exact
-          path="/profile"
+          path="/collection"
           render={() => (
             <Page>
-              <Profile />
+              <Collection />
             </Page>
           )}
         />
         <Route
           exact
-          path="/profile-edit"
-          render={() => (
+          path="/item/:id"
+          render={({ match }) => (
             <Page>
-              <ProfileEdit />
+              <Item id={match.params.id} />
             </Page>
           )}
         />
         <Route
           exact
-          path="/item"
-          render={() => (
+          path="/list/:name"
+          render={({ match }) => (
             <Page>
-              <Item />
-            </Page>
-          )}
-        />
-        <Route
-          exact
-          path="/pagelist"
-          render={() => (
-            <Page>
-              <PageList />
+              <List name={match.params.name} />
             </Page>
           )}
         />
