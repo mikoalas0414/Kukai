@@ -1,4 +1,6 @@
 import React from 'react'
+import { ThemeProvider } from "styled-components";
+import { ModalProvider, dark } from '@pancakeswap-libs/uikit'
 import * as bsc from '@binance-chain/bsc-use-wallet'
 import { Provider } from 'react-redux'
 import getRpcUrl from './utils/getRpcUrl'
@@ -6,18 +8,21 @@ import { configureStore } from './redux/store';
 
 const Providers = ({ children }) => {
   const rpcUrl = getRpcUrl()
-  const chainId = parseInt(process.env.REACT_APP_CHAIN_ID);
+  const chainId = 97;
+  const theme = dark;
   return (
     <Provider store={configureStore()}>
-      <bsc.UseWalletProvider
-        chainId={chainId}
-        connectors={{
-          walletconnect: { rpcUrl },
-          bsc,
-        }}
-      >
-        {children}
-      </bsc.UseWalletProvider>
+      <ThemeProvider theme={theme}>
+        <bsc.UseWalletProvider
+          chainId={chainId}
+          connectors={{
+            walletconnect: { rpcUrl },
+            bsc,
+          }}
+        >
+          <ModalProvider>{children}</ModalProvider>
+        </bsc.UseWalletProvider>
+      </ThemeProvider>
     </Provider>
   )
 }

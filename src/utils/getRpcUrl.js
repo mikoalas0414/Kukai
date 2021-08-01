@@ -1,11 +1,6 @@
-import random from 'lodash/random'
-
-// Array of available nodes to connect to
-const nodes = [process.env.REACT_APP_NODE_1, process.env.REACT_APP_NODE_2, process.env.REACT_APP_NODE_3]
 
 const getRpcUrl = () => {
-  const randomIndex = random(0, nodes.length - 1)
-  return nodes[randomIndex]
+  return 'https://data-seed-prebsc-2-s3.binance.org:8545/'
 }
 
 export default getRpcUrl

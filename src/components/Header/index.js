@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useWallet } from '@binance-chain/bsc-use-wallet'
+import { useWalletModal } from '@pancakeswap-libs/uikit'
 import cn from "classnames";
 import styles from "./Header.module.sass";
 import Icon from "../Icon";
 import Image from "../Image";
 
-const nav = [
-  // {
-  //   url: "/faq",
-  //   title: "How it works",
-  // },
-];
-
 const Headers = () => {
   const [visibleNav, setVisibleNav] = useState(false);
   const [search, setSearch] = useState("");
+  const { account, connect, reset } = useWallet()
+  const { onPresentConnectModal } = useWalletModal(connect, reset, account);
 
-  const { account, connect } = useWallet()
-  useEffect(() => {
+  useEffect(async () => {
     if (!account && window.localStorage.getItem('accountStatus')) {
       connect('injected')
+    }else{
+      onPresentConnectModal();
     }
-  }, [account, connect])
-
-  const handleSubmit = (e) => {
-    alert();
-  };
+  }, [])
 
   return (
     <header className={styles.header}>
@@ -52,13 +45,13 @@ const Headers = () => {
         <div className={cn(styles.buttonWrapper)}>
           <Link
             className={cn(styles.profileButton)}
-            to="#"
+            to="/collection"
           >
             Profile
           </Link>
           <Link
             className={cn("primary-button", styles.primaryButton)}
-            to="#"
+            to="/create"
           >
             Create
           </Link>

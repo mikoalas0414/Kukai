@@ -50,10 +50,10 @@ function App() {
         />
         <Route
           exact
-          path="/list/:name"
+          path="/list/:address"
           render={({ match }) => (
             <Page>
-              <List name={match.params.name} />
+              <List address={match.params.address} />
             </Page>
           )}
         />

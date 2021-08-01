@@ -1,12 +1,23 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import cn from "classnames";
+import { useWallet } from '@binance-chain/bsc-use-wallet'
+import useWeb3 from '../../hooks/useWeb3'
+import { getUserNFTs } from '../../utils/common'
+import { useExchange } from '../../hooks/useContract'
 import Card from "./Card";
 import { collectionList } from "../../mocks/mainList"
 import styles from "./Collection.module.sass";
 
-const Collection = ({ name }) => {
+const Collection = () => {
+  const { account } = useWallet()
   const [menu, setMenu] = useState(0);
+  const [list, setList] = useState([]);
+  const web3 = useWeb3();
+  const exchangeContract = useExchange()
+
+  useEffect(async () => {
+    setList(await getUserNFTs(web3, exchangeContract, account))
+  }, [])
 
   return (
     <div>
@@ -41,7 +52,7 @@ const Collection = ({ name }) => {
       <div className={cn("container mt-5", styles.container)}>
         <div className="row">
           {
-            collectionList.map((item, index) => (
+            list.map((item, index) => (
               <Card item={item} key={index} />
             ))
           }

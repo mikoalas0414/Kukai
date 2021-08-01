@@ -1,28 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import AvatarGroup from "@atlaskit/avatar-group";
+import { useWallet } from '@binance-chain/bsc-use-wallet'
+import useWeb3 from '../../hooks/useWeb3'
+import { getNFTById, buyNFT } from '../../utils/common'
+import { useExchange } from '../../hooks/useContract'
 import Icon from "../../components/Icon";
-import { mainList } from "../../mocks/mainList"
 import styles from "./Item.module.sass";
-
-const owners = [
-  {
-    email: '',
-    key: 'mcjin',
-    name: 'MC Jin',
-    src:
-      "/images/avatar1.png",
-    href: "/list/mcjin"
-  },
-  {
-    email: '',
-    key: 'hanjintan',
-    name: 'Hanjin Tan',
-    src:
-      "/images/avatar2.png",
-    href: "/list/hanjintan"
-  }
-];
 
 const bidList = [
   {
@@ -41,16 +25,33 @@ const bidList = [
 
 const Item = ({ id }) => {
   const [iconType, setIconType] = useState('vimeo');
+  const [item, setItem] = useState({nft:{}, artist: {}});
+  const [creator, setCreator] = useState([]);
+  const { account } = useWallet()
+  const web3 = useWeb3();
+  const exchangeContract = useExchange()
+  let NFTItem;
+
+  useEffect(async () => {
+    NFTItem = await getNFTById(web3, exchangeContract, id)
+    setItem(NFTItem.nft)
+    setCreator([{email: '', key: NFTItem.nft.creator, name: NFTItem.artist.name, src: NFTItem.artist.imageUrl, href: '/list/'+NFTItem.nft.creator}])
+  }, [])
 
   const handleIconType = (val) => {
     setIconType(val)
+  }
+
+  const handleBuyNFT = async () => {
+    const response = await buyNFT(exchangeContract, account, id)
+    console.log(response)
   }
 
   return (
     <div className="container pt-5">
       <div className="row">
         <div className="col-md-5">
-          <img className={styles.image} src={mainList[id].image} />
+          <img className={styles.image} src={item.imageUrl} />
           <p className={cn("pt-4 pb-3", styles.largeText)}>
             Stream it on...
           </p>
@@ -70,7 +71,7 @@ const Item = ({ id }) => {
           <div className="flex justify-between items-start">
             <div>
               <p className={styles.title}>
-                {mainList[id].title}
+                {item.name}
               </p>
               <p className={styles.title}>
                 (Re-released)
@@ -88,17 +89,17 @@ const Item = ({ id }) => {
           </div>
           <div className="flex py-2 items-center">
             <div className={styles.avatarWrapper}>
-              <AvatarGroup appearance="stack" size="large" borderColor="transparent" data={owners} />
+              <AvatarGroup appearance="stack" size="large" borderColor="transparent" data={creator} />
             </div>
             <p className={cn("ms-4", styles.largeText)}>
-              MC Jin, Hanjin Tan
+              {item.artistName}
             </p>
           </div>
           <div className={cn("mt-2 mb-2", styles.tokenWrapper)}>
-            {mainList[id].tokens} Tokens Available
+            {item.amountAvailable} Tokens Available
           </div>
           <p className={cn("mt-3", styles.description)}>
-            {mainList[id].description}
+            {item.description}
           </p>
           <div className={cn("mt-3", styles.bidContainer)}>
             <div className={cn("py-2 px-4", styles.bidTitle)}>
@@ -117,17 +118,17 @@ const Item = ({ id }) => {
                 </div>
               </div>
               {
-                bidList.map((item, index) => (
+                bidList.map((bidItem, index) => (
                   <div className="flex mt-1 mb-1" key={index}>
                     <div className={styles.bidFrom}>
-                      <img src={item.image} />
-                      <span>{item.name}</span>
+                      <img src={bidItem.image} />
+                      <span>{bidItem.name}</span>
                     </div>
                     <div className={styles.bidPrice}>
-                      <span>Ξ {item.price}</span>
+                      <span>Ξ {bidItem.price}</span>
                     </div>
                     <div className={styles.bidDate}>
-                      {item.date}
+                      {bidItem.date}
                     </div>
                   </div>
                 ))
@@ -135,11 +136,11 @@ const Item = ({ id }) => {
             </div>
           </div>
           <div className="flex mt-4 justify-between">
-            <button className={styles.buy}>
+            <button className={styles.buy} onClick={handleBuyNFT}>
               Buy Now
             </button>
             <div className={styles.priceWrapper}>
-              <p className={styles.bnbPrice}>1.00 BNB</p>
+              <p className={styles.bnbPrice}>{item.price} BNB</p>
               <p className={styles.usdPrice}>~$2542.16</p>
             </div>
           </div>

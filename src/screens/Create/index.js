@@ -1,26 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import cn from "classnames";
+import { useWallet } from '@binance-chain/bsc-use-wallet'
+import useWeb3 from '../../hooks/useWeb3'
+import { createNFT } from '../../utils/common'
+import { useExchange } from '../../hooks/useContract'
 import styles from "./Create.module.sass";
 
 const Create = () => {
-  const handleSubmit = (event) => {
+  const web3 = useWeb3()
+  const { account } = useWallet()
+  const exchangeContract = useExchange()
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    console.log(data)
+    const response = await createNFT(web3, exchangeContract, account, data)
+    console.log(response)
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className={cn("container", styles.container)}>
         <p className={styles.title}>Create NFT</p>
-        <input type="text" name="title" className="create" placeholder="Song title" />
-        <input type="text" name="image" className="create" placeholder="Image Url" />
+        <input type="text" name="name" className="create" placeholder="Song title" />
+        <input type="text" name="imageUrl" className="create" placeholder="Image Url" />
         <input type="number" name="price" className="create" step="any" placeholder="Price (BNB)" />
-        <input type="number" name="number" className="create" step="any" placeholder="Number of NFTs" />
+        <input type="number" name="amountAvailable" className="create" step="any" placeholder="Number of NFTs" />
         <textarea name="description" className="create" placeholder="Description (Max 50 words)" rows="4">
         </textarea>
-        <button type="submit">Create NFT</button>
+        <button type="submit" disabled>Create NFT</button>
       </div>
     </form>
   );
