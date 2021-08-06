@@ -50,11 +50,19 @@ const Headers = () => {
             Profile
           </Link>
           <Link
-            className={cn("primary-button", styles.primaryButton)}
+            className={styles.primaryButton}
             to="/create"
           >
             Create
           </Link>
+          {
+            account &&
+            <button
+              className={styles.accountButton}
+            >
+              {account.substr(0,9)}
+            </button>
+          }
         </div>
       </div>
       <div className={cn("container", styles.mobileContainer)}>
